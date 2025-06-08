@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "a6f99eaf-9330-4fb5-b561-ce47acf6c052",
+		"name": "PET STORE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33553950"
+	},
+	"item": [
+		{
+			"name": "Creates list of users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.above(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response matches the expected schema\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys('code', 'type', 'message');\r",
+							"    pm.expect(responseData.code).to.be.a('number');\r",
+							"    pm.expect(responseData.type).to.be.a('string');\r",
+							"    pm.expect(responseData.message).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Type is a string and is not undefined or null\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.type).to.exist.and.to.be.a('string').and.to.not.be.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"id\": 16,\r\n    \"username\": \"Oba\",\r\n    \"firstName\": \"Olu\",\r\n    \"lastName\": \"Giovanni\",\r\n    \"email\": \"giovanni@yahoo.com\",\r\n    \"password\": \"Petstore@2025\",\r\n    \"phone\": \"07044336652\",\r\n    \"userStatus\": 16\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/createWithList",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"createWithList"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore.swagger.io/v2/user/createWithList' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '[\r\n  {\r\n    \"id\": 0,\r\n    \"username\": \"string\",\r\n    \"firstName\": \"string\",\r\n    \"lastName\": \"string\",\r\n    \"email\": \"string\",\r\n    \"password\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"userStatus\": 0\r\n  }\r\n]'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by user name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response contains required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys('id', 'username', 'firstName', 'lastName', 'email', 'password', 'phone', 'userStatus');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.email).to.exist;\r",
+							"\r",
+							"    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\r",
+							"    pm.expect(responseData.email).to.match(emailRegex, \"Email format is invalid\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"UserStatus is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.have.property('userStatus');\r",
+							"    pm.expect(responseData.userStatus).to.be.a('number').and.to.be.at.least(0, \"UserStatus should be a non-negative integer\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/Oba",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"Oba"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore.swagger.io/v2/user/string' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 100,\r\n  \"username\": \"Adedayo24\",\r\n  \"firstName\": \"Esther\",\r\n  \"lastName\": \"Kunle\",\r\n  \"email\": \"string\",\r\n  \"password\": \"Petstore@02025\",\r\n  \"phone\": \"string\",\r\n  \"userStatus\":100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/Adedayo",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"Adedayo"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'PUT' \\\r\n  'https://petstore.swagger.io/v2/user/string' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 0,\r\n  \"username\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\",\r\n  \"phone\": \"string\",\r\n  \"userStatus\": 0\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/string",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"string"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'https://petstore.swagger.io/v2/user/string' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response contains required fields: code, type, and message\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys('code', 'type', 'message');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response matches the expected schema\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys('code', 'type', 'message');\r",
+							"    pm.expect(responseData.code).to.be.a('number');\r",
+							"    pm.expect(responseData.type).to.be.a('string');\r",
+							"    pm.expect(responseData.message).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Code is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.code).to.exist.and.to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 24,\r\n  \"username\": \"Adedayo\",\r\n  \"firstName\": \"Isaac\",\r\n  \"lastName\": \"Jide\",\r\n  \"email\": \"isaacjide@gmail.com\",\r\n  \"password\": \"Petstore@02025\",\r\n  \"phone\": \"07067223325\",\r\n  \"userStatus\": 24\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore.swagger.io/v2/user' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 0,\r\n  \"username\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\",\r\n  \"phone\": \"string\",\r\n  \"userStatus\": 0\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Creates list of users with given input array",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has required fields: code, type, and message\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys('code', 'type', 'message');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response schema structure is valid\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys('code', 'type', 'message');\r",
+							"    pm.expect(responseData.code).to.be.a('number');\r",
+							"    pm.expect(responseData.type).to.be.a('string');\r",
+							"    pm.expect(responseData.message).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Code is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.code).to.exist.and.to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"id\": 7,\r\n    \"username\": \"Emma\",\r\n    \"firstName\": \"Emmanuel\",\r\n    \"lastName\": \"Ade\",\r\n    \"email\": \"emma@yahoo.com\",\r\n    \"password\": \"Fabulous024\",\r\n    \"phone\": \"09077886655\",\r\n    \"userStatus\": 7\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/createWithArray",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"createWithArray"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore.swagger.io/v2/user/createWithArray' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '[\r\n  {\r\n    \"id\": 0,\r\n    \"username\": \"string\",\r\n    \"firstName\": \"string\",\r\n    \"lastName\": \"string\",\r\n    \"email\": \"string\",\r\n    \"password\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"userStatus\": 0\r\n  }\r\n]'"
+			},
+			"response": []
+		},
+		{
+			"name": "Logs User into the system",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/login?username=Fabulous&password=Petsore@2025",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "Fabulous"
+						},
+						{
+							"key": "password",
+							"value": "Petsore@2025"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore.swagger.io/v2/user/login?username=string&password=string' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Logs out current logged in user session",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/logout",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"logout"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore.swagger.io/v2/user/logout' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		}
+	]
+}
